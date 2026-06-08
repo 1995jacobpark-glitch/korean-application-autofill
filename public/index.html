@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HWP 지원서 자동작성</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="side-panel">
+        <div class="brand">
+          <div class="brand-mark">H</div>
+          <div>
+            <h1>HWP 지원서 자동작성</h1>
+            <p>로컬 앱</p>
+          </div>
+        </div>
+        <nav class="step-list" aria-label="작업 단계">
+          <a class="step-link active" href="#upload">업로드</a>
+          <a class="step-link" href="#profile">프로필</a>
+          <a class="step-link" href="#draft">중간값</a>
+          <a class="step-link" href="#output">출력</a>
+        </nav>
+        <div class="status-box" id="systemStatus">환경 확인 중</div>
+      </aside>
+
+      <section class="workspace">
+        <section class="topbar">
+          <div>
+            <p class="eyebrow">HWP IN · HWP OUT</p>
+            <h2>이력서 원본과 관공서 양식을 연결합니다</h2>
+          </div>
+          <div class="actions">
+            <button class="icon-button" id="diagnosticBtn" type="button" title="진단 복사" aria-label="진단 복사">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v4H4V4Zm0 6h10v10H4V10Zm12 0h4v10h-4V10Z"/></svg>
+            </button>
+            <button class="icon-button" id="resetBtn" type="button" title="초기화" aria-label="초기화">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-4.58 3H5.34A7 7 0 1 0 12 5Z"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <section class="upload-grid" id="upload">
+          <form class="upload-panel" id="profileForm">
+            <div class="panel-title">
+              <span class="number">1</span>
+              <h3>이력서 HWP</h3>
+            </div>
+            <label class="file-drop">
+              <input type="file" name="hwp" accept=".hwp" required />
+              <span>기존 이력서 선택</span>
+            </label>
+            <button class="primary-button" type="submit">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 9v12h16V9l-8-6Zm0 2.5 5.5 4.13V19h-11V9.63L12 5.5Zm-1 5.5h2v5h-2v-5Z"/></svg>
+              프로필 추출
+            </button>
+          </form>
+
+          <form class="upload-panel" id="templateForm">
+            <div class="panel-title">
+              <span class="number">2</span>
+              <h3>관공서 양식 HWP</h3>
+            </div>
+            <label class="file-drop">
+              <input type="file" name="hwp" accept=".hwp" required />
+              <span>공고문 또는 신청서 선택</span>
+            </label>
+            <button class="primary-button" type="submit">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5V3Zm2 2v14h10V5H7Zm2 3h6v2H9V8Zm0 4h6v2H9v-2Z"/></svg>
+              양식 분석
+            </button>
+          </form>
+        </section>
+
+        <section class="content-grid">
+          <article class="data-panel" id="profile">
+            <div class="section-head">
+              <h3>내 프로필</h3>
+              <span class="pill" id="profilePill">대기</span>
+            </div>
+            <div class="summary-grid" id="profileSummary"></div>
+            <textarea id="profileJson" spellcheck="false" aria-label="프로필 JSON"></textarea>
+          </article>
+
+          <article class="data-panel">
+            <div class="section-head">
+              <h3>양식 분석</h3>
+              <span class="pill" id="templatePill">대기</span>
+            </div>
+            <div class="summary-grid" id="templateSummary"></div>
+            <div class="doc-list" id="requiredDocs"></div>
+          </article>
+        </section>
+
+        <section class="draft-panel" id="draft">
+          <div class="section-head">
+            <h3>중간값 편집</h3>
+            <div class="actions">
+              <button class="secondary-button" id="buildDraftBtn" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v4H4V4Zm0 6h10v10H4V10Zm12 0h4v10h-4V10Z"/></svg>
+                추천값 만들기
+              </button>
+            </div>
+          </div>
+          <div class="draft-table-wrap">
+            <table class="draft-table">
+              <thead>
+                <tr>
+                  <th>항목</th>
+                  <th>값</th>
+                  <th>상태</th>
+                  <th>신뢰도</th>
+                </tr>
+              </thead>
+              <tbody id="draftRows">
+                <tr>
+                  <td colspan="4" class="empty">아직 생성된 중간값이 없습니다.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="output-panel" id="output">
+          <div>
+            <h3>HWP 출력</h3>
+            <p id="outputMessage">생성 대기</p>
+          </div>
+          <button class="generate-button" id="generateBtn" type="button" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.17l3.59-3.58L17 11l-5 5-5-5 1.41-1.41L11 13.17V3h1Zm-7 14h2v2h10v-2h2v4H5v-4Z"/></svg>
+            HWP 생성
+          </button>
+        </section>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

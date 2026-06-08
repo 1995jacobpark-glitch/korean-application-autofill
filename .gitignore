@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+bin/*.exe
+bin/*.spec
+
+# Runtime workspace data
+.work/
+uploads/
+outputs/
+data/*.latest.json
+
+# Generated caches
+scripts/__pycache__/
+*.py[cod]
+.pytest_cache/
+coverage/
+
+# Local environment and logs
+.env
+.env.*
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Personal/source documents and generated artifacts
+*.hwp
+*.hwpx
+*.docx
+*.pptx
+*.pdf
+claim_assist_extracted.txt
+claim_assist_korean_translation/
+_deck_multan_flood_v1/
+_hwp_analysis/
+_reference_inputs/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

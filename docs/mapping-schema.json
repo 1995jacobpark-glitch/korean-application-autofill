@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HWP Template Mapping Draft",
+  "type": "object",
+  "required": ["values"],
+  "properties": {
+    "templateTitle": { "type": "string" },
+    "agency": { "type": "string" },
+    "projectName": { "type": "string" },
+    "generatedAt": { "type": "string" },
+    "values": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "type", "profileField", "value", "confidence", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "type": { "type": "string" },
+          "profileField": { "type": "string" },
+          "value": {},
+          "confidence": { "type": "number" },
+          "status": {
+            "type": "string",
+            "enum": ["auto", "needs_review", "confirmed", "rejected", "empty"]
+          },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "requiredDocuments": { "type": "array", "items": { "type": "string" } }
+  }
+}

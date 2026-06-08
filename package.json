@@ -1,0 +1,60 @@
+{
+  "name": "hwp-resume-autofill-mvp",
+  "version": "0.1.4",
+  "private": true,
+  "description": "Local desktop app for extracting reusable profile data from HWP resumes and filling HWP application drafts.",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "desktop": "electron .",
+    "build:worker": "powershell -ExecutionPolicy Bypass -File .\\scripts\\build_worker.ps1",
+    "pack:win": "npm run build:worker && set \"CSC_IDENTITY_AUTO_DISCOVERY=false\" && electron-builder --win portable",
+    "build:win": "npm run build:worker && set \"CSC_IDENTITY_AUTO_DISCOVERY=false\" && electron-builder --win nsis"
+  },
+  "dependencies": {
+    "@ohah/hwpjs": "0.1.0-rc.10",
+    "express": "^4.19.2",
+    "multer": "^2.1.1"
+  },
+  "devDependencies": {
+    "electron": "^41.3.0",
+    "electron-builder": "^26.8.1"
+  },
+  "build": {
+    "appId": "kr.local.hwp-autofill",
+    "productName": "HWP 지원서 자동작성",
+    "asar": false,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "public/**/*",
+      "scripts/**/*",
+      "src/**/*",
+      "docs/**/*",
+      "bin/**/*",
+      "server.js",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "signAndEditExecutable": false,
+      "verifyUpdateCodeSignature": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
